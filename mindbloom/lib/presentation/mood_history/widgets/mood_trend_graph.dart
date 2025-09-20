@@ -27,6 +27,8 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
   late MoodAnalytics _analytics;
   List<FlSpot> _spots = [];
   List<FlSpot> _trendSpots = [];
+  double? _touchedValue;
+
   @override
   void initState() {
     super.initState();

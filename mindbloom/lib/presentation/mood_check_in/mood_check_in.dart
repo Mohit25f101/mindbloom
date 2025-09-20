@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
+import '../../models/mood_emoji.dart';
 import './widgets/activity_selector_widget.dart';
 import './widgets/mood_history_timeline_widget.dart';
 import './widgets/mood_notes_widget.dart';
-import './widgets/mood_selector_widget.dart';
+import './widgets/mood_selection_widget.dart';
 import './widgets/mood_tags_widget.dart';
 import './widgets/streak_counter_widget.dart';
 import './widgets/voice_recording_widget.dart';
@@ -20,7 +21,7 @@ class MoodCheckIn extends StatefulWidget {
 
 class _MoodCheckInState extends State<MoodCheckIn>
     with TickerProviderStateMixin {
-  int _selectedMood = 0;
+  MoodEmoji? _selectedMood;
   final List<String> _selectedTags = [];
   String _selectedActivity = "";
   String _notes = "";
@@ -48,12 +49,6 @@ class _MoodCheckInState extends State<MoodCheckIn>
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  void _onMoodSelected(int mood) {
-    setState(() {
-      _selectedMood = mood;
-    });
   }
 
   void _onTagToggle(String tag) {
@@ -92,7 +87,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
   }
 
   Future<void> _logMood() async {
-    if (_selectedMood == 0) {
+    if (_selectedMood == null) {
       _showErrorMessage("Please select your mood level");
       return;
     }
@@ -198,7 +193,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
 
   void _resetForm() {
     setState(() {
-      _selectedMood = 0;
+      _selectedMood = null;
       _selectedTags.clear();
       _selectedActivity = "";
       _notes = "";
@@ -377,9 +372,18 @@ class _MoodCheckInState extends State<MoodCheckIn>
                       SizedBox(height: 4.h),
 
                       // Mood Selector
-                      MoodSelectorWidget(
-                        selectedMood: _selectedMood,
-                        onMoodSelected: _onMoodSelected,
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 2.w),
+                        child: MoodSelectionWidget(
+                          initialMood: _selectedMood,
+                          onMoodSelected: (mood) {
+                            setState(() {
+                              _selectedMood = mood;
+                            });
+                            // Provide haptic feedback
+                            HapticFeedback.mediumImpact();
+                          },
+                        ),
                       ),
 
                       SizedBox(height: 4.h),

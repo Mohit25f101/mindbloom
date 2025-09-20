@@ -3,10 +3,13 @@ import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
 import '../../widgets/custom_icon_widget.dart';
+import '../../models/mood_emoji.dart';
+import '../../models/mood_analytics.dart';
 import './widgets/filter_options_widget.dart';
-import './widgets/insights_widget.dart';
-import './widgets/mood_chart_widget.dart';
-import './widgets/mood_timeline_widget.dart';
+import './widgets/insights_widget_new.dart';
+
+import './widgets/mood_trend_graph.dart';
+import './widgets/mood_entry_timeline.dart';
 import './widgets/time_period_selector_widget.dart';
 
 class MoodHistory extends StatefulWidget {
@@ -29,169 +32,153 @@ class _MoodHistoryState extends State<MoodHistory> {
   };
 
   // Mock data for mood history
-  final List<Map<String, dynamic>> _allMoodData = [
-    {
-      "id": 1,
-      "date": "2025-01-15T10:30:00.000Z",
-      "rating": 4,
-      "notes":
+  final List<MoodEntry> _allMoodData = [
+    MoodEntry(
+      id: 1,
+      timestamp: DateTime.parse("2025-01-15T10:30:00.000Z"),
+      mood: MoodEmoji.good,
+      notes:
           "Had a great morning workout and felt energized for classes. The weather was perfect for a walk between lectures.",
-      "activities": ["Exercise", "Study", "Social"],
-      "triggers": [],
-      "location": "Campus Gym"
-    },
-    {
-      "id": 2,
-      "date": "2025-01-14T16:45:00.000Z",
-      "rating": 3,
-      "notes":
+      tags: ["Exercise", "Study", "Social"],
+      location: "Campus Gym",
+    ),
+    MoodEntry(
+      id: 2,
+      timestamp: DateTime.parse("2025-01-14T16:45:00.000Z"),
+      mood: MoodEmoji.okay,
+      notes:
           "Neutral day overall. Completed assignments but felt a bit overwhelmed with upcoming deadlines.",
-      "activities": ["Study", "Work"],
-      "triggers": ["Deadlines"],
-      "location": "Library"
-    },
-    {
-      "id": 3,
-      "date": "2025-01-13T20:15:00.000Z",
-      "rating": 5,
-      "notes":
+      tags: ["Study", "Work", "Deadlines"],
+      location: "Library",
+    ),
+    MoodEntry(
+      id: 3,
+      timestamp: DateTime.parse("2025-01-13T20:15:00.000Z"),
+      mood: MoodEmoji.great,
+      notes:
           "Amazing day! Aced my presentation and celebrated with friends. Feeling confident and happy.",
-      "activities": ["Study", "Social", "Entertainment"],
-      "triggers": [],
-      "location": "Student Center"
-    },
-    {
-      "id": 4,
-      "date": "2025-01-12T14:20:00.000Z",
-      "rating": 2,
-      "notes":
+      tags: ["Study", "Social", "Entertainment"],
+      location: "Student Center",
+    ),
+    MoodEntry(
+      id: 4,
+      timestamp: DateTime.parse("2025-01-12T14:20:00.000Z"),
+      mood: MoodEmoji.bad,
+      notes:
           "Stressful day with back-to-back exams. Didn't sleep well last night and it showed in my performance.",
-      "activities": ["Study"],
-      "triggers": ["Exams", "Sleep"],
-      "location": "Exam Hall"
-    },
-    {
-      "id": 5,
-      "date": "2025-01-11T11:00:00.000Z",
-      "rating": 4,
-      "notes":
+      tags: ["Study", "Exams", "Sleep"],
+      location: "Exam Hall",
+    ),
+    MoodEntry(
+      id: 5,
+      timestamp: DateTime.parse("2025-01-11T11:00:00.000Z"),
+      mood: MoodEmoji.good,
+      notes:
           "Good study session with friends. We helped each other understand difficult concepts.",
-      "activities": ["Study", "Social"],
-      "triggers": [],
-      "location": "Study Room"
-    },
-    {
-      "id": 6,
-      "date": "2025-01-10T18:30:00.000Z",
-      "rating": 3,
-      "notes":
+      tags: ["Study", "Social"],
+      location: "Study Room",
+    ),
+    MoodEntry(
+      id: 6,
+      timestamp: DateTime.parse("2025-01-10T18:30:00.000Z"),
+      mood: MoodEmoji.okay,
+      notes:
           "Regular day. Attended all classes and did some light exercise. Nothing particularly exciting.",
-      "activities": ["Study", "Exercise"],
-      "triggers": [],
-      "location": "Campus"
-    },
-    {
-      "id": 7,
-      "date": "2025-01-09T09:45:00.000Z",
-      "rating": 1,
-      "notes":
+      tags: ["Study", "Exercise"],
+      location: "Campus",
+    ),
+    MoodEntry(
+      id: 7,
+      timestamp: DateTime.parse("2025-01-09T09:45:00.000Z"),
+      mood: MoodEmoji.terrible,
+      notes:
           "Very difficult day. Received disappointing grade on important project. Feeling discouraged about academic progress.",
-      "activities": ["Study"],
-      "triggers": ["Academic Pressure", "Grades"],
-      "location": "Professor's Office"
-    },
-    {
-      "id": 8,
-      "date": "2025-01-08T15:10:00.000Z",
-      "rating": 4,
-      "notes":
+      tags: ["Study", "Academic Pressure", "Grades"],
+      location: "Professor's Office",
+    ),
+    MoodEntry(
+      id: 8,
+      timestamp: DateTime.parse("2025-01-08T15:10:00.000Z"),
+      mood: MoodEmoji.good,
+      notes:
           "Productive day working on group project. Team collaboration went smoothly and we made good progress.",
-      "activities": ["Study", "Social", "Work"],
-      "triggers": [],
-      "location": "Group Study Area"
-    },
-    {
-      "id": 9,
-      "date": "2025-01-07T12:25:00.000Z",
-      "rating": 3,
-      "notes":
+      tags: ["Study", "Social", "Work"],
+      location: "Group Study Area",
+    ),
+    MoodEntry(
+      id: 9,
+      timestamp: DateTime.parse("2025-01-07T12:25:00.000Z"),
+      mood: MoodEmoji.okay,
+      notes:
           "Average day with mixed emotions. Some classes were interesting, others felt boring.",
-      "activities": ["Study"],
-      "triggers": [],
-      "location": "Lecture Hall"
-    },
-    {
-      "id": 10,
-      "date": "2025-01-06T19:40:00.000Z",
-      "rating": 5,
-      "notes":
+      tags: ["Study"],
+      location: "Lecture Hall",
+    ),
+    MoodEntry(
+      id: 10,
+      timestamp: DateTime.parse("2025-01-06T19:40:00.000Z"),
+      mood: MoodEmoji.great,
+      notes:
           "Weekend relaxation was exactly what I needed. Spent quality time with family and recharged completely.",
-      "activities": ["Family Time", "Entertainment", "Sleep"],
-      "triggers": [],
-      "location": "Home"
-    },
-    {
-      "id": 11,
-      "date": "2025-01-05T13:15:00.000Z",
-      "rating": 2,
-      "notes":
+      tags: ["Family Time", "Entertainment", "Sleep"],
+      location: "Home",
+    ),
+    MoodEntry(
+      id: 11,
+      timestamp: DateTime.parse("2025-01-05T13:15:00.000Z"),
+      mood: MoodEmoji.bad,
+      notes:
           "Struggled with motivation today. The rainy weather made it hard to get out of bed and be productive.",
-      "activities": ["Sleep"],
-      "triggers": ["Weather", "Motivation"],
-      "location": "Dorm Room"
-    },
-    {
-      "id": 12,
-      "date": "2025-01-04T17:50:00.000Z",
-      "rating": 4,
-      "notes":
+      tags: ["Sleep", "Weather", "Motivation"],
+      location: "Dorm Room",
+    ),
+    MoodEntry(
+      id: 12,
+      timestamp: DateTime.parse("2025-01-04T17:50:00.000Z"),
+      mood: MoodEmoji.good,
+      notes:
           "Great workout session followed by healthy meal prep. Taking care of my body makes me feel accomplished.",
-      "activities": ["Exercise", "Self-care"],
-      "triggers": [],
-      "location": "Fitness Center"
-    },
-    {
-      "id": 13,
-      "date": "2025-01-03T10:05:00.000Z",
-      "rating": 3,
-      "notes":
+      tags: ["Exercise", "Self-care"],
+      location: "Fitness Center",
+    ),
+    MoodEntry(
+      id: 13,
+      timestamp: DateTime.parse("2025-01-03T10:05:00.000Z"),
+      mood: MoodEmoji.okay,
+      notes:
           "Back to routine after break. Mixed feelings about starting new semester but optimistic overall.",
-      "activities": ["Study", "Planning"],
-      "triggers": ["Change"],
-      "location": "Campus"
-    },
-    {
-      "id": 14,
-      "date": "2025-01-02T21:30:00.000Z",
-      "rating": 5,
-      "notes":
+      tags: ["Study", "Planning", "Change"],
+      location: "Campus",
+    ),
+    MoodEntry(
+      id: 14,
+      timestamp: DateTime.parse("2025-01-02T21:30:00.000Z"),
+      mood: MoodEmoji.great,
+      notes:
           "New Year celebration with close friends was incredible. Feeling grateful for the relationships in my life.",
-      "activities": ["Social", "Entertainment", "Celebration"],
-      "triggers": [],
-      "location": "Friend's House"
-    },
-    {
-      "id": 15,
-      "date": "2025-01-01T14:00:00.000Z",
-      "rating": 4,
-      "notes":
+      tags: ["Social", "Entertainment", "Celebration"],
+      location: "Friend's House",
+    ),
+    MoodEntry(
+      id: 15,
+      timestamp: DateTime.parse("2025-01-01T14:00:00.000Z"),
+      mood: MoodEmoji.good,
+      notes:
           "Reflective start to the new year. Set some meaningful goals and feeling motivated for positive changes.",
-      "activities": ["Reflection", "Goal Setting"],
-      "triggers": [],
-      "location": "Home"
-    }
+      tags: ["Reflection", "Goal Setting"],
+      location: "Home",
+    ),
   ];
 
-  List<Map<String, dynamic>> get _filteredMoodData {
+  List<MoodEntry> get _filteredMoodData {
     return _allMoodData.where((entry) {
-      final rating = entry['rating'] as int;
-      final activities = (entry['activities'] as List).cast<String>();
-      final triggers = (entry['triggers'] as List).cast<String>();
-      final date = DateTime.parse(entry['date'] as String);
+      final moodValue = entry.mood.value;
+      final tags = entry.tags;
+      final date = entry.timestamp;
 
       // Mood range filter
-      if (rating < (_currentFilters['minMood'] as int) ||
-          rating > (_currentFilters['maxMood'] as int)) {
+      if (moodValue < (_currentFilters['minMood'] as int) ||
+          moodValue > (_currentFilters['maxMood'] as int)) {
         return false;
       }
 
@@ -199,8 +186,7 @@ class _MoodHistoryState extends State<MoodHistory> {
       final selectedActivities =
           (_currentFilters['activities'] as List).cast<String>();
       if (selectedActivities.isNotEmpty &&
-          !selectedActivities
-              .any((activity) => activities.contains(activity))) {
+          !selectedActivities.any((activity) => tags.contains(activity))) {
         return false;
       }
 
@@ -208,7 +194,7 @@ class _MoodHistoryState extends State<MoodHistory> {
       final selectedTriggers =
           (_currentFilters['triggers'] as List).cast<String>();
       if (selectedTriggers.isNotEmpty &&
-          !selectedTriggers.any((trigger) => triggers.contains(trigger))) {
+          !selectedTriggers.any((trigger) => tags.contains(trigger))) {
         return false;
       }
 
@@ -227,35 +213,31 @@ class _MoodHistoryState extends State<MoodHistory> {
     }).toList();
   }
 
-  List<Map<String, dynamic>> get _periodFilteredData {
+  List<MoodEntry> get _periodFilteredData {
     final now = DateTime.now();
     final filteredData = _filteredMoodData;
 
     switch (_selectedPeriod) {
       case 'Week':
         final weekAgo = now.subtract(const Duration(days: 7));
-        return filteredData.where((entry) {
-          final date = DateTime.parse(entry['date'] as String);
-          return date.isAfter(weekAgo);
-        }).toList();
+        return filteredData
+            .where((entry) => entry.timestamp.isAfter(weekAgo))
+            .toList();
       case 'Month':
         final monthAgo = DateTime(now.year, now.month - 1, now.day);
-        return filteredData.where((entry) {
-          final date = DateTime.parse(entry['date'] as String);
-          return date.isAfter(monthAgo);
-        }).toList();
+        return filteredData
+            .where((entry) => entry.timestamp.isAfter(monthAgo))
+            .toList();
       case '3 Months':
         final threeMonthsAgo = DateTime(now.year, now.month - 3, now.day);
-        return filteredData.where((entry) {
-          final date = DateTime.parse(entry['date'] as String);
-          return date.isAfter(threeMonthsAgo);
-        }).toList();
+        return filteredData
+            .where((entry) => entry.timestamp.isAfter(threeMonthsAgo))
+            .toList();
       case 'Year':
         final yearAgo = DateTime(now.year - 1, now.month, now.day);
-        return filteredData.where((entry) {
-          final date = DateTime.parse(entry['date'] as String);
-          return date.isAfter(yearAgo);
-        }).toList();
+        return filteredData
+            .where((entry) => entry.timestamp.isAfter(yearAgo))
+            .toList();
       default:
         return filteredData;
     }
@@ -330,13 +312,19 @@ class _MoodHistoryState extends State<MoodHistory> {
                       children: [
                         SizedBox(height: 2.h),
 
-                        // Mood chart
+                        // Mood trend graph
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          child: MoodChartWidget(
-                            moodData: _periodFilteredData,
-                            selectedPeriod: _selectedPeriod,
-                            onDataPointTap: _onChartDataPointTap,
+                          child: MoodTrendGraph(
+                            entries: _allMoodData,
+                            startDate: DateTime.now().subtract(Duration(
+                                days: _selectedPeriod == 'Week'
+                                    ? 7
+                                    : _selectedPeriod == 'Month'
+                                        ? 30
+                                        : 90)),
+                            endDate: DateTime.now(),
+                            showMovingAverage: true,
                           ),
                         ),
 
@@ -352,8 +340,8 @@ class _MoodHistoryState extends State<MoodHistory> {
                         ],
 
                         // Mood timeline
-                        MoodTimelineWidget(
-                          moodEntries: _periodFilteredData,
+                        MoodEntryTimeline(
+                          entries: _periodFilteredData,
                           onEditEntry: _editMoodEntry,
                           onDeleteEntry: _deleteMoodEntry,
                         ),
@@ -428,129 +416,6 @@ class _MoodHistoryState extends State<MoodHistory> {
         ),
       );
     }
-  }
-
-  void _onChartDataPointTap(int index) {
-    if (index >= 0 && index < _periodFilteredData.length) {
-      final entry = _periodFilteredData[index];
-      _showMoodEntryDetails(entry);
-    }
-  }
-
-  void _showMoodEntryDetails(Map<String, dynamic> entry) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final date = DateTime.parse(entry['date'] as String);
-    final rating = entry['rating'] as int;
-    final notes = entry['notes'] as String? ?? '';
-    final activities = (entry['activities'] as List?)?.cast<String>() ?? [];
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        constraints: BoxConstraints(maxHeight: 70.h),
-        decoration: BoxDecoration(
-          color: colorScheme.surface,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 12.w,
-              height: 0.5.h,
-              margin: EdgeInsets.only(top: 2.h, bottom: 3.h),
-              decoration: BoxDecoration(
-                color: colorScheme.outline.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2.0),
-              ),
-            ),
-            Flexible(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mood Entry Details',
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 3.h),
-                    Text(
-                      '${date.month}/${date.day}/${date.year} at ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                    ),
-                    SizedBox(height: 2.h),
-                    Row(
-                      children: [
-                        Text(
-                          'Mood Rating: ',
-                          style: theme.textTheme.titleMedium,
-                        ),
-                        Text(
-                          '$rating/5',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (notes.isNotEmpty) ...[
-                      SizedBox(height: 2.h),
-                      Text(
-                        'Notes:',
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      SizedBox(height: 1.h),
-                      Text(
-                        notes,
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                    ],
-                    if (activities.isNotEmpty) ...[
-                      SizedBox(height: 2.h),
-                      Text(
-                        'Activities:',
-                        style: theme.textTheme.titleMedium,
-                      ),
-                      SizedBox(height: 1.h),
-                      Wrap(
-                        spacing: 2.w,
-                        runSpacing: 1.h,
-                        children: activities.map((activity) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 3.w, vertical: 1.h),
-                            decoration: BoxDecoration(
-                              color: colorScheme.primaryContainer,
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Text(
-                              activity,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: colorScheme.onPrimaryContainer,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                    SizedBox(height: 4.h),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   void _showFilterOptions() {

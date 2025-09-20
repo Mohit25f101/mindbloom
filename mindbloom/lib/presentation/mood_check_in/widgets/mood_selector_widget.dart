@@ -30,7 +30,7 @@ class MoodSelectorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 25.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

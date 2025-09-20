@@ -54,6 +54,20 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+    _moveToDefaultLocation();
+  }
+
+  void _moveToDefaultLocation() {
+    if (_mapController != null) {
+      _mapController!.moveCamera(
+        CameraUpdate.newCameraPosition(
+          const CameraPosition(
+            target: LatLng(37.7749, -122.4194), // Default to first center
+            zoom: 12.0,
+          ),
+        ),
+      );
+    }
   }
 
   Set<Marker> _createMarkers() {

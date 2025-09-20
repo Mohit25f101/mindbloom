@@ -97,18 +97,12 @@ class _UserRegistrationState extends State<UserRegistration>
       // Simulate account creation process
       await Future.delayed(const Duration(seconds: 2));
 
-      // Mock account creation logic
-      final userData = {
-        'email': _emailController.text.trim(),
-        'university': _selectedUniversity,
-        'academicYear': _selectedAcademicYear,
-        'major': _selectedMajor,
-        'age': int.tryParse(_ageController.text),
-        'dataConsent': _dataCollectionConsent,
-        'crisisConsent': _crisisInterventionConsent,
-        'emergencyConsent': _emergencyContactConsent,
-        'createdAt': DateTime.now().toIso8601String(),
-      };
+      // Mock account creation logic - validation only for now
+      if (_selectedUniversity == null ||
+          _selectedAcademicYear == null ||
+          _selectedMajor == null) {
+        throw Exception('Please complete all required fields.');
+      }
 
       // Check for duplicate email (mock validation)
       if (_emailController.text.trim().toLowerCase() == 'test@university.edu') {

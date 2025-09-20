@@ -18,7 +18,7 @@ class CrisisSupport extends StatefulWidget {
 
 class _CrisisSupportState extends State<CrisisSupport> {
   bool _isSafeNow = false;
-  String _currentLocation = "University Campus";
+  final String _currentLocation = "University Campus";
 
   // Mock emergency contacts data
   final List<Map<String, dynamic>> _emergencyContacts = [

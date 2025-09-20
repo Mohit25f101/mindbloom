@@ -60,7 +60,7 @@ class _MoodTrendsCardState extends State<MoodTrendsCard> {
               ],
             ),
             SizedBox(height: 2.h),
-            Container(
+            SizedBox(
               height: 25.h,
               child: LineChart(
                 LineChartData(

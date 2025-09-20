@@ -10,10 +10,10 @@ class CustomErrorWidget extends StatelessWidget {
   final String? errorMessage;
 
   const CustomErrorWidget({
-    Key? key,
+    super.key,
     this.errorDetails,
     this.errorMessage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -118,8 +117,12 @@ class _VoiceRecordingWidgetState extends State<VoiceRecordingWidget>
           _recordingPath = path;
         });
 
-        // Simulate voice-to-text processing
-        await Future.delayed(const Duration(seconds: 2));
+        // Process the recording at the saved path
+        if (_recordingPath != null && _recordingPath!.isNotEmpty) {
+          debugPrint('Processing recording at: $_recordingPath');
+          // Simulate voice-to-text processing
+          await Future.delayed(const Duration(seconds: 2));
+        }
 
         // Mock transcription result
         final mockTranscriptions = [

@@ -385,7 +385,7 @@ class _MoodHistoryState extends State<MoodHistory> {
   }
 
   Widget _buildLoadingState() {
-    return Container(
+    return SizedBox(
       height: 50.h,
       child: Center(
         child: Column(
@@ -576,8 +576,6 @@ class _MoodHistoryState extends State<MoodHistory> {
   }
 
   void _exportData() async {
-    final theme = Theme.of(context);
-
     // Show export options
     final result = await showDialog<String>(
       context: context,

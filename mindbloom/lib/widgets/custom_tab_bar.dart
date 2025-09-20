@@ -167,8 +167,4 @@ class CustomTabController extends ChangeNotifier {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

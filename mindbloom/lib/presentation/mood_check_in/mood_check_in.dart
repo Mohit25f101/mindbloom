@@ -21,13 +21,13 @@ class MoodCheckIn extends StatefulWidget {
 class _MoodCheckInState extends State<MoodCheckIn>
     with TickerProviderStateMixin {
   int _selectedMood = 0;
-  List<String> _selectedTags = [];
+  final List<String> _selectedTags = [];
   String _selectedActivity = "";
   String _notes = "";
   bool _isNotesExpanded = false;
   bool _isLoading = false;
   int _streakCount = 7;
-  String _userName = "Alex";
+  final String _userName = "Alex";
   late TabController _tabController;
 
   final List<String> _motivationalMessages = [

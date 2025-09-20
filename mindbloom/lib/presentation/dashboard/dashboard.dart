@@ -18,7 +18,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   late TabController _tabController;
-  bool _isRefreshing = false;
   bool _showCrisisBanner = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -53,16 +52,9 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   }
 
   Future<void> _refreshDashboard() async {
-    setState(() {
-      _isRefreshing = true;
-    });
-
     // Simulate data refresh
     await Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      _isRefreshing = false;
-    });
+    _checkCrisisPatterns();
   }
 
   String _getGreeting() {

@@ -292,7 +292,7 @@ class _RegistrationFormWidgetState extends State<RegistrationFormWidget> {
 
           // University Dropdown
           DropdownButtonFormField<String>(
-            value: widget.selectedUniversity,
+            initialValue: widget.selectedUniversity,
             decoration: InputDecoration(
               labelText: 'University',
               hintText: 'Select your university',
@@ -329,7 +329,7 @@ class _RegistrationFormWidgetState extends State<RegistrationFormWidget> {
             children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  value: widget.selectedAcademicYear,
+                  initialValue: widget.selectedAcademicYear,
                   decoration: InputDecoration(
                     labelText: 'Academic Year',
                     hintText: 'Select year',
@@ -392,7 +392,7 @@ class _RegistrationFormWidgetState extends State<RegistrationFormWidget> {
 
           // Major Dropdown
           DropdownButtonFormField<String>(
-            value: widget.selectedMajor,
+            initialValue: widget.selectedMajor,
             decoration: InputDecoration(
               labelText: 'Major/Field of Study',
               hintText: 'Select your major',

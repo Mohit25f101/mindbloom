@@ -73,7 +73,7 @@ class MoodHistoryTimelineWidget extends StatelessWidget {
           ],
         ),
         SizedBox(height: 2.h),
-        Container(
+        SizedBox(
           height: 12.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,

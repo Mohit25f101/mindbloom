@@ -146,7 +146,7 @@ class UpcomingCheckinsCard extends StatelessWidget {
                   ],
                 ),
               );
-            }).toList(),
+            }),
             SizedBox(height: 1.h),
             SizedBox(
               width: double.infinity,

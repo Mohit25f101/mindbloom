@@ -101,7 +101,7 @@ class AppTheme {
     ),
 
     // Card theme with subtle elevation and breathing room
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardLight,
       elevation: 2.0, // Subtle depth without visual weight
       shadowColor: shadowLight,
@@ -283,7 +283,7 @@ class AppTheme {
       trackHeight: 4.0,
     ),
 
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelColor: primaryLight,
       unselectedLabelColor: textSecondaryLight,
       indicatorColor: primaryLight,
@@ -330,7 +330,8 @@ class AppTheme {
       color: dividerLight,
       thickness: 1.0,
       space: 1.0,
-    ), dialogTheme: DialogThemeData(backgroundColor: dialogLight),
+    ),
+    dialogTheme: DialogThemeData(backgroundColor: dialogLight),
   );
 
   /// Dark theme maintaining therapeutic principles for night use
@@ -382,7 +383,7 @@ class AppTheme {
       iconTheme: IconThemeData(color: textPrimaryDark),
       actionsIconTheme: IconThemeData(color: textPrimaryDark),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardDark,
       elevation: 2.0,
       shadowColor: shadowDark,
@@ -545,7 +546,7 @@ class AppTheme {
       inactiveTrackColor: primaryDark.withAlpha(77),
       trackHeight: 4.0,
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelColor: primaryDark,
       unselectedLabelColor: textSecondaryDark,
       indicatorColor: primaryDark,
@@ -589,7 +590,8 @@ class AppTheme {
       color: dividerDark,
       thickness: 1.0,
       space: 1.0,
-    ), dialogTheme: DialogThemeData(backgroundColor: dialogDark),
+    ),
+    dialogTheme: DialogThemeData(backgroundColor: dialogDark),
   );
 
   /// Helper method to build therapeutic text theme

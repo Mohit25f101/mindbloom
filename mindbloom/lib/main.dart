@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       child: Sizer(
         builder: (context, orientation, screenType) {
           return MaterialApp(
-            title: 'mindguard',
+            title: 'Mindbloom',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: ThemeMode.light,

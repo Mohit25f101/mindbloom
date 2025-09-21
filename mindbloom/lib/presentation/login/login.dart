@@ -5,7 +5,7 @@ import '../../core/app_export.dart';
 import '../../models/user_model.dart';
 import '../../services/local_storage_service.dart';
 import '../../widgets/custom_icon_widget.dart';
-import './widgets/mindguard_logo_widget.dart';
+import './widgets/mindbloom_logo_widget.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -199,14 +199,14 @@ class _LoginState extends State<Login> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Logo
-                        const MindguardLogoWidget(),
+                        const MindbloomLogoWidget(),
                         SizedBox(height: 4.h),
 
                         // Welcome Text
                         Text(
                           'Welcome Back',
                           style: theme.textTheme.headlineMedium?.copyWith(
-                            color: colorScheme.onBackground,
+                            color: colorScheme.onSurface,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
@@ -215,7 +215,7 @@ class _LoginState extends State<Login> {
                         Text(
                           'Sign in to continue your mental wellness journey',
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            color: colorScheme.onBackground.withOpacity(0.7),
+                            color: colorScheme.onSurface.withOpacity(0.7),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -342,8 +342,7 @@ class _LoginState extends State<Login> {
                             Text(
                               'Don\'t have an account? ',
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                color:
-                                    colorScheme.onBackground.withOpacity(0.7),
+                                color: colorScheme.onSurface.withOpacity(0.7),
                               ),
                             ),
                             TextButton(

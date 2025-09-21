@@ -51,7 +51,7 @@ class _AiCompanionChatState extends State<AiCompanionChat>
     _messages.add({
       'id': DateTime.now().millisecondsSinceEpoch.toString(),
       'content':
-          'Hello! I\'m your MindGuard AI companion. I\'m here to provide emotional support and help you navigate through any challenges you\'re facing. How are you feeling today?',
+          'Hello! I\'m your Mindbloom AI companion. I\'m here to provide emotional support and help you navigate through any challenges you\'re facing. How are you feeling today?',
       'isUser': false,
       'timestamp': DateTime.now(),
       'isTyping': false,

@@ -80,7 +80,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       key: _scaffoldKey,
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('MindGuard'),
+        title: Text('Mindbloom'),
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
         elevation: 0,

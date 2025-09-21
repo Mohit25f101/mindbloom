@@ -1,3 +1,9 @@
+# Application Briefs 
+
+* Helps recording mood daily in log form .
+* Provides A.I. companion as a support to chat with.
+* further extends to Crisis Support section for 
+options like calls to crisis hotline campus council ,text crisis line & emergency service.
 # Flutter
 
 A modern Flutter-based mobile application utilizing the latest mobile development technologies and tools for building responsive cross-platform applications.
@@ -135,8 +141,10 @@ flutter build ios --release
 ```
 
 ## 🙏 Acknowledgments
-- Built with [Rocket.new](https://rocket.new)
-- Powered by [Flutter](https://flutter.dev) & [Dart](https://dart.dev)
-- Styled with Material Design
+- Dhruv 
+- Mohit 
+- Rohan 
+- Ankit 
+- Swati
 
-Built with ❤️ on Rocket.new
+Built with ❤️ 

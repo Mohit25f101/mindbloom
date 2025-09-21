@@ -86,6 +86,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           onPressed: () => _scaffoldKey.currentState?.openDrawer(),
         ),
         actions: [
+          // Minimal theme switch button
+          _ThemeSwitchButton(),
           IconButton(
             icon: Container(
               padding: EdgeInsets.all(2.w),
@@ -104,6 +106,34 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           ),
           SizedBox(width: 2.w),
         ],
+// Minimal theme switch button widget
+import 'package:provider/provider.dart';
+import '../../theme/theme_provider.dart';
+
+class _ThemeSwitchButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDark = themeProvider.themeMode == ThemeMode.dark;
+    return IconButton(
+      icon: AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
+        child: Icon(
+          isDark ? Icons.light_mode : Icons.dark_mode,
+          key: ValueKey(isDark),
+          size: 22,
+          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+        ),
+      ),
+      tooltip: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+      onPressed: () => themeProvider.toggleTheme(),
+      splashRadius: 22,
+      padding: EdgeInsets.zero,
+      constraints: BoxConstraints(),
+    );
+  }
+}
       ),
       drawer: _buildNavigationDrawer(context),
       body: SafeArea(

@@ -1,4 +1,4 @@
-name: mindguard
+name: mindbloom
 description: A new Flutter project.
 publish_to: none
 version: 1.0.0+1
@@ -20,6 +20,7 @@ dependencies:
   # Feature dependencies - safe to modify
   cached_network_image: ^3.3.1
   connectivity_plus: ^6.1.4
+  provider: ^6.1.1
   dio: ^5.4.0
   fluttertoast: ^8.2.4
   fl_chart: ^0.65.0
@@ -35,7 +36,12 @@ dependencies:
 dev_dependencies:
   flutter_test:    # CRITICAL: Required for Flutter project testing - DO NOT REMOVE
     sdk: flutter   # CRITICAL: Required for Flutter project testing - DO NOT REMOVE
-  flutter_lints: ^5.0.0 # CRITICAL: Required for code quality - DO NOT REMOVE
+  flutter_launcher_icons: "^0.14.4"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png.png" # CRITICAL: Required for code quality - DO NOT REMOVE
 
 flutter:
   uses-material-design: true # CRITICAL: Required for Material icon font - DO NOT REMOVE

@@ -104,7 +104,7 @@ class TermsPrivacyWidget extends StatelessWidget {
 
   String _getTermsOfServiceContent() {
     return '''
-MINDGUARD TERMS OF SERVICE
+MINDBLOOM TERMS OF SERVICE
 
 Last Updated: September 15, 2025
 
@@ -112,7 +112,7 @@ Last Updated: September 15, 2025
 By creating an account and using MindGuard, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our service.
 
 2. DESCRIPTION OF SERVICE
-MindGuard is a mental health monitoring and support application designed specifically for students. Our service includes:
+Mindbloom is a mental health monitoring and support application designed specifically for students. Our service includes:
 - Continuous mental health monitoring through self-assessments
 - AI-driven sentiment analysis and mood tracking
 - Personalized coping strategies and recommendations
@@ -162,8 +162,8 @@ We may modify these terms at any time. We will notify you of significant changes
 
 12. CONTACT INFORMATION
 If you have questions about these Terms of Service, please contact us at:
-Email: support@mindguard.app
-Phone: 1-800-MINDGUARD
+Email: support@mindbloom.app
+Phone: 1-800-MINDBLOOM
 
 By using MindGuard, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
 ''';
@@ -171,12 +171,12 @@ By using MindGuard, you acknowledge that you have read, understood, and agree to
 
   String _getPrivacyPolicyContent() {
     return '''
-MINDGUARD PRIVACY POLICY
+MINDBLOOM PRIVACY POLICY
 
 Last Updated: September 15, 2025
 
 1. INTRODUCTION
-MindGuard ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mental health monitoring application.
+Mindbloom ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mental health monitoring application.
 
 2. INFORMATION WE COLLECT
 
@@ -259,11 +259,11 @@ We may update this Privacy Policy periodically. We will notify you of significan
 
 If you have questions about this Privacy Policy or our privacy practices, please contact us at:
 
-Email: privacy@mindguard.app
-Phone: 1-800-MINDGUARD
-Address: MindGuard Privacy Office, 123 Mental Health Way, Wellness City, WC 12345
+Email: privacy@mindbloom.app
+Phone: 1-800-MINDBLOOM
+Address: Mindbloom Privacy Office, 123 Mental Health Way, Wellness City, WC 12345
 
-For EU residents, you may also contact our Data Protection Officer at: dpo@mindguard.app
+For EU residents, you may also contact our Data Protection Officer at: dpo@mindbloom.app
 
 This Privacy Policy is designed to be transparent about our data practices while ensuring we can provide effective mental health support services.
 ''';

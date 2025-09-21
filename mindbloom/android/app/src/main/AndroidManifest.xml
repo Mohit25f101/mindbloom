@@ -6,9 +6,9 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     
     <application
-            android:label="MindGuard"
+            android:label="Mindbloom"
             android:name="${applicationName}"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/launcher_icon"
             android:enableOnBackInvokedCallback="true">
         
         <!-- Google Maps API Key -->

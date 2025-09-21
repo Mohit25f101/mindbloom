@@ -3,7 +3,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
 import '../../widgets/custom_icon_widget.dart';
-import './widgets/mindguard_logo_widget.dart';
+import './widgets/mindbloom_logo_widget.dart';
 import './widgets/registration_form_widget.dart';
 import './widgets/terms_privacy_widget.dart';
 
@@ -198,7 +198,7 @@ class _UserRegistrationState extends State<UserRegistration>
                   ),
                   SizedBox(height: 3.h),
                   Text(
-                    'Welcome to MindGuard!',
+                    'Welcome to Mindbloom!',
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.primary,
@@ -259,8 +259,8 @@ class _UserRegistrationState extends State<UserRegistration>
 
                     SizedBox(height: 2.h),
 
-                    // MindGuard Logo
-                    const MindGuardLogoWidget(showText: true),
+                    // Mindbloom Logo
+                    const MindbloomLogoWidget(showText: true),
 
                     SizedBox(height: 4.h),
 

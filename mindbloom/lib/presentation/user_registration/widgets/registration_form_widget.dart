@@ -476,7 +476,7 @@ class _RegistrationFormWidgetState extends State<RegistrationFormWidget> {
                     style: theme.textTheme.bodyMedium,
                   ),
                   subtitle: Text(
-                    'MindGuard may contact emergency services or designated contacts if severe mental health risks are detected.',
+                    'Mindbloom may contact emergency services or designated contacts if severe mental health risks are detected.',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),

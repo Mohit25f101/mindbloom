@@ -94,7 +94,7 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
           LineChartData(
             lineTouchData: LineTouchData(
               touchTooltipData: LineTouchTooltipData(
-                tooltipBgColor: colorScheme.surfaceVariant.withOpacity(0.8),
+                tooltipBgColor: colorScheme.surfaceContainerHighest.withOpacity(0.8),
                 getTooltipItems: (spots) {
                   return spots.map((spot) {
                     return LineTooltipItem(
@@ -151,7 +151,7 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
                       child: Text(
                         '${date.day}/${date.month}',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onBackground.withOpacity(0.7),
+                          color: colorScheme.onSurface.withOpacity(0.7),
                         ),
                       ),
                     );

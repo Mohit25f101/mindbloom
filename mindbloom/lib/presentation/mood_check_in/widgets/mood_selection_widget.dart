@@ -145,7 +145,7 @@ class _MoodSelectionWidgetState extends State<MoodSelectionWidget>
                 Text(
                   _selectedMood!.description,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onBackground.withOpacity(0.7),
+                    color: colorScheme.onSurface.withOpacity(0.7),
                   ),
                   textAlign: TextAlign.center,
                 ),

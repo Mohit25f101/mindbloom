@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
@@ -52,9 +53,15 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   }
 
   Future<void> _refreshDashboard() async {
-    // Simulate data refresh
-    await Future.delayed(const Duration(seconds: 2));
-    _checkCrisisPatterns();
+    final loadingState = Provider.of<LoadingState>(context, listen: false);
+    try {
+      loadingState.startLoading('Refreshing dashboard...');
+      // Simulate data refresh
+      await Future.delayed(const Duration(seconds: 2));
+      _checkCrisisPatterns();
+    } finally {
+      loadingState.stopLoading();
+    }
   }
 
   String _getGreeting() {

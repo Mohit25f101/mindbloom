@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
+import '../../models/user_model.dart';
+import '../../services/local_storage_service.dart';
 import './widgets/crisis_support_banner.dart';
 import './widgets/mood_trends_card.dart';
 import './widgets/quick_actions_card.dart';
@@ -22,18 +24,29 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   bool _showCrisisBanner = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Mock user data
-  final Map<String, dynamic> userData = {
-    "name": "Sarah",
+  late LocalStorageService _storage;
+  UserModel? _currentUser;
+  Map<String, dynamic> userData = {
     "currentMood": 7.8,
     "streak": 12,
     "lastCheckIn": "2 hours ago",
     "wellnessScore": 7.8,
   };
 
+  Future<void> _loadUserData() async {
+    _storage = await LocalStorageService.getInstance();
+    final user = _storage.getUser();
+    if (user != null && mounted) {
+      setState(() {
+        _currentUser = user;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _loadUserData();
     _tabController = TabController(length: 1, vsync: this);
     _checkCrisisPatterns();
   }
@@ -80,7 +93,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       key: _scaffoldKey,
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('Mindbloom'),
+        title: const Text('Mindbloom'),
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
         elevation: 0,
@@ -94,7 +107,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () => Navigator.pushNamed(context, AppRoutes.settings),
           ),
           IconButton(
@@ -104,7 +117,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 color: AppTheme.errorLight.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: CustomIconWidget(
+              child: const CustomIconWidget(
                 iconName: 'emergency',
                 color: AppTheme.errorLight,
                 size: 20,
@@ -188,12 +201,12 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         onPressed: () => _showQuickMoodLog(context),
         backgroundColor: colorScheme.primary,
         foregroundColor: Colors.white,
-        icon: CustomIconWidget(
+        icon: const CustomIconWidget(
           iconName: 'mood',
           color: Colors.white,
           size: 24,
         ),
-        label: Text('Log Mood'),
+        label: const Text('Log Mood'),
       ),
     );
   }
@@ -209,7 +222,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         children: [
           // Greeting
           Text(
-            '${_getGreeting()}, ${userData["name"]}!',
+            '${_getGreeting()}, ${_currentUser?.username ?? 'User'}!',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
@@ -342,7 +355,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     showModalBottomSheet(
       context: context,
       backgroundColor: colorScheme.surface,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
@@ -384,7 +397,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                     Navigator.pop(context);
                     Navigator.pushNamed(context, '/mood-check-in');
                   },
-                  child: Text('Detailed Check-in'),
+                  child: const Text('Detailed Check-in'),
                 ),
               ),
               SizedBox(height: 2.h),

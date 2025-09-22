@@ -31,8 +31,8 @@ class _MoodChartWidgetState extends State<MoodChartWidget> {
 
     return Container(
       width: double.infinity,
-      height: 35.h,
-      padding: EdgeInsets.all(4.w),
+      height: 40.h, // Increased height for better text spacing
+      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16.0),
@@ -128,11 +128,12 @@ class _MoodChartWidgetState extends State<MoodChartWidget> {
                   final data = widget.moodData[value.toInt()];
                   final date = DateTime.parse(data['date'] as String);
                   return SideTitleWidget(
-                    axisSide: meta.axisSide,
+                    meta: meta,
                     child: Text(
                       _formatDateLabel(date),
                       style: TextStyle(
-                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: colorScheme.onSurface
+                            .withValues(alpha: 153), // 0.6 * 255 = 153
                         fontSize: 10.sp,
                       ),
                     ),
@@ -224,8 +225,10 @@ class _MoodChartWidgetState extends State<MoodChartWidget> {
             });
           },
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: colorScheme.inverseSurface,
-            tooltipRoundedRadius: 8,
+            getTooltipColor: (_) => colorScheme.inverseSurface,
+            tooltipBorder: const BorderSide(color: Colors.transparent),
+            tooltipBorderRadius: const BorderRadius.all(Radius.circular(8)),
+            tooltipPadding: const EdgeInsets.all(8),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
                 final flSpot = barSpot;

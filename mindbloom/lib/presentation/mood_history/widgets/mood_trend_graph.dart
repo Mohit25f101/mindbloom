@@ -27,7 +27,6 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
   late MoodAnalytics _analytics;
   List<FlSpot> _spots = [];
   List<FlSpot> _trendSpots = [];
-  double? _touchedValue;
 
   @override
   void initState() {
@@ -94,7 +93,11 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
           LineChartData(
             lineTouchData: LineTouchData(
               touchTooltipData: LineTouchTooltipData(
-                tooltipBgColor: colorScheme.surfaceContainerHighest.withOpacity(0.8),
+                getTooltipColor: (_) => colorScheme.surfaceContainerHighest
+                    .withValues(alpha: 204), // 0.8 * 255 = 204
+                tooltipBorder: const BorderSide(color: Colors.transparent),
+                tooltipBorderRadius: const BorderRadius.all(Radius.circular(8)),
+                tooltipPadding: const EdgeInsets.all(8),
                 getTooltipItems: (spots) {
                   return spots.map((spot) {
                     return LineTooltipItem(
@@ -107,18 +110,6 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
                   }).toList();
                 },
               ),
-              touchCallback: (event, response) {
-                if (response?.lineBarSpots != null &&
-                    response!.lineBarSpots!.isNotEmpty) {
-                  setState(() {
-                    _touchedValue = response.lineBarSpots![0].y;
-                  });
-                } else {
-                  setState(() {
-                    _touchedValue = null;
-                  });
-                }
-              },
             ),
             gridData: FlGridData(show: false),
             titlesData: FlTitlesData(
@@ -151,7 +142,8 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
                       child: Text(
                         '${date.day}/${date.month}',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.7),
+                          color: colorScheme.onSurface
+                              .withValues(alpha: 179), // 0.7 * 255 = 179
                         ),
                       ),
                     );
@@ -192,7 +184,8 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
                 ),
                 belowBarData: BarAreaData(
                   show: true,
-                  color: colorScheme.primary.withOpacity(0.1),
+                  color: colorScheme.primary
+                      .withValues(alpha: 26), // 0.1 * 255 = 26
                 ),
               ),
               // Trend line

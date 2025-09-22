@@ -94,6 +94,10 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         ),
         actions: [
           IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.settings),
+          ),
+          IconButton(
             icon: Container(
               padding: EdgeInsets.all(2.w),
               decoration: BoxDecoration(

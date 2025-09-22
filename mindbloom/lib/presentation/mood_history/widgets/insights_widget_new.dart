@@ -30,10 +30,11 @@ class InsightsWidget extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 4.w),
       padding: EdgeInsets.all(4.w),
       decoration: BoxDecoration(
-        color: colorScheme.primaryContainer.withOpacity(0.3),
+        color: colorScheme.primaryContainer
+            .withValues(alpha: 77), // 0.3 * 255 = 77
         borderRadius: BorderRadius.circular(16.0),
         border: Border.all(
-          color: colorScheme.primary.withOpacity(0.2),
+          color: colorScheme.primary.withValues(alpha: 51), // 0.2 * 255 = 51
           width: 1.0,
         ),
       ),

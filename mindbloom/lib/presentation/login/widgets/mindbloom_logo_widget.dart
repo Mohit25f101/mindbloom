@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MindbloomLogoWidget extends StatelessWidget {
   const MindbloomLogoWidget({super.key});
@@ -9,11 +8,11 @@ class MindbloomLogoWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SvgPicture.asset(
-          'assets/images/img_app_logo.svg',
+        Image.asset(
+          'assets/images/logo.png',
           width: 80,
           height: 80,
-          semanticsLabel: 'Mindbloom Logo',
+          semanticLabel: 'Mindbloom Logo',
         ),
         Text(
           'Mindbloom',

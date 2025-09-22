@@ -215,7 +215,8 @@ class _LoginState extends State<Login> {
                         Text(
                           'Sign in to continue your mental wellness journey',
                           style: theme.textTheme.bodyLarge?.copyWith(
-                            color: colorScheme.onSurface.withOpacity(0.7),
+                            color: colorScheme.onSurface
+                                .withValues(alpha: 179), // 0.7 * 255 = 179
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -342,7 +343,8 @@ class _LoginState extends State<Login> {
                             Text(
                               'Don\'t have an account? ',
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                color: colorScheme.onSurface.withOpacity(0.7),
+                                color: colorScheme.onSurface
+                                    .withValues(alpha: 179), // 0.7 * 255 = 179
                               ),
                             ),
                             TextButton(

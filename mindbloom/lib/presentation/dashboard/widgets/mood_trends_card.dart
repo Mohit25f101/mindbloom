@@ -176,7 +176,12 @@ class _MoodTrendsCardState extends State<MoodTrendsCard> {
                       }
                     },
                     touchTooltipData: LineTouchTooltipData(
-                      tooltipBgColor: colorScheme.inverseSurface,
+                      getTooltipColor: (_) => colorScheme.inverseSurface,
+                      tooltipBorder:
+                          const BorderSide(color: Colors.transparent),
+                      tooltipBorderRadius:
+                          const BorderRadius.all(Radius.circular(8)),
+                      tooltipPadding: const EdgeInsets.all(8),
                       getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
                         return touchedBarSpots.map((barSpot) {
                           final index = barSpot.spotIndex;

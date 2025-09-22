@@ -87,23 +87,25 @@ class _MoodSelectionWidgetState extends State<MoodSelectionWidget>
                   scale: isSelected ? 1.2 : 1.0,
                   duration: const Duration(milliseconds: 200),
                   child: Container(
-                    width: 15.w,
-                    height: 15.w,
+                    width: 18.w, // Increased width for better spacing
+                    height: 18.w,
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? mood.color.withOpacity(0.2)
+                          ? mood.color.withValues(alpha: 51) // 0.2 * 255 = 51
                           : colorScheme.surface,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: isSelected
                             ? mood.color
-                            : colorScheme.outline.withOpacity(0.2),
+                            : colorScheme.outline
+                                .withValues(alpha: 51), // 0.2 * 255 = 51
                         width: isSelected ? 2 : 1,
                       ),
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: mood.color.withOpacity(0.3),
+                                color: mood.color
+                                    .withValues(alpha: 77), // 0.3 * 255 = 77
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),
@@ -145,7 +147,8 @@ class _MoodSelectionWidgetState extends State<MoodSelectionWidget>
                 Text(
                   _selectedMood!.description,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.7),
+                    color: colorScheme.onSurface
+                        .withValues(alpha: 179), // 0.7 * 255 = 179
                   ),
                   textAlign: TextAlign.center,
                 ),

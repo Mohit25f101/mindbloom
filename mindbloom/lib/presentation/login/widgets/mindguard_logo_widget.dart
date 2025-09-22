@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 class MindguardLogoWidget extends StatelessWidget {
@@ -11,10 +10,10 @@ class MindguardLogoWidget extends StatelessWidget {
 
     return Column(
       children: [
-        SvgPicture.asset(
-          'assets/images/img_app_logo.svg',
+        Image.asset(
+          'assets/images/logo.png',
           height: 15.h,
-          semanticsLabel: 'MindGuard Logo',
+          semanticLabel: 'MindGuard Logo',
         ),
         SizedBox(height: 2.h),
         Text(

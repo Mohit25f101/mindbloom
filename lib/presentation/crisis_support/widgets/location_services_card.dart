@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/app_export.dart';
 import '../../../widgets/custom_icon_widget.dart';
+import '../../../widgets/mapbox_map_widget.dart';
 
 class LocationServicesCard extends StatefulWidget {
   final VoidCallback? onFindNearbyHelp;
@@ -18,77 +19,63 @@ class LocationServicesCard extends StatefulWidget {
 }
 
 class _LocationServicesCardState extends State<LocationServicesCard> {
-  GoogleMapController? _mapController;
   bool _isMapExpanded = false;
 
   // Mock nearby crisis centers data
-  final List<Map<String, dynamic>> _nearbyCenters = [
-    {
-      "name": "University Counseling Center",
-      "address": "123 Campus Drive, University City",
-      "distance": "0.5 miles",
-      "phone": "(555) 123-4567",
-      "type": "Counseling",
-      "isOpen": true,
-      "position": const LatLng(37.7749, -122.4194),
-    },
-    {
-      "name": "Crisis Support Center",
-      "address": "456 Main Street, Downtown",
-      "distance": "1.2 miles",
-      "phone": "(555) 987-6543",
-      "type": "Crisis Center",
-      "isOpen": true,
-      "position": const LatLng(37.7849, -122.4094),
-    },
-    {
-      "name": "General Hospital Emergency",
-      "address": "789 Health Blvd, Medical District",
-      "distance": "2.1 miles",
-      "phone": "(555) 911-0000",
-      "type": "Emergency",
-      "isOpen": true,
-      "position": const LatLng(37.7649, -122.4294),
-    },
+  final List<CrisisCenter> _nearbyCenters = [
+    CrisisCenter(
+      name: "University Counseling Center",
+      address: "123 Campus Drive, University City",
+      distance: "0.5 miles",
+      phone: "(555) 123-4567",
+      type: "Counseling",
+      isOpen: true,
+      latitude: 37.7749,
+      longitude: -122.4194,
+    ),
+    CrisisCenter(
+      name: "Crisis Support Center",
+      address: "456 Main Street, Downtown",
+      distance: "1.2 miles",
+      phone: "(555) 987-6543",
+      type: "Crisis Center",
+      isOpen: true,
+      latitude: 37.7849,
+      longitude: -122.4094,
+    ),
+    CrisisCenter(
+      name: "General Hospital Emergency",
+      address: "789 Health Blvd, Medical District",
+      distance: "2.1 miles",
+      phone: "(555) 911-0000",
+      type: "Emergency",
+      isOpen: true,
+      latitude: 37.7649,
+      longitude: -122.4294,
+    ),
+    CrisisCenter(
+      name: "Mental Health Clinic",
+      address: "321 Wellness Ave, Midtown",
+      distance: "1.8 miles",
+      phone: "(555) 456-7890",
+      type: "Crisis Center",
+      isOpen: true,
+      latitude: 37.7849,
+      longitude: -122.4094,
+    ),
+    CrisisCenter(
+      name: "Community Emergency Services",
+      address: "987 Help Street, Downtown",
+      distance: "2.5 miles",
+      phone: "(555) 999-8888",
+      type: "Emergency",
+      isOpen: true,
+      latitude: 37.7649,
+      longitude: -122.4294,
+    ),
   ];
 
-  void _onMapCreated(GoogleMapController controller) {
-    _mapController = controller;
-    _moveToDefaultLocation();
-  }
-
-  void _moveToDefaultLocation() {
-    if (_mapController != null) {
-      _mapController!.moveCamera(
-        CameraUpdate.newCameraPosition(
-          const CameraPosition(
-            target: LatLng(37.7749, -122.4194), // Default to first center
-            zoom: 12.0,
-          ),
-        ),
-      );
-    }
-  }
-
-  Set<Marker> _createMarkers() {
-    return _nearbyCenters.map((center) {
-      return Marker(
-        markerId: MarkerId(center["name"] as String),
-        position: center["position"] as LatLng,
-        infoWindow: InfoWindow(
-          title: center["name"] as String,
-          snippet: center["address"] as String,
-        ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(
-          center["type"] == "Emergency"
-              ? BitmapDescriptor.hueRed
-              : center["type"] == "Crisis Center"
-                  ? BitmapDescriptor.hueOrange
-                  : BitmapDescriptor.hueBlue,
-        ),
-      );
-    }).toSet();
-  }
+  // Map functions will be handled by the MapboxMapWidget
 
   @override
   Widget build(BuildContext context) {
@@ -101,12 +88,12 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16.0),
         border: Border.all(
-          color: colorScheme.outline.withValues(alpha: 0.2),
+          color: colorScheme.outline.withOpacity(0.2),
           width: 1.0,
         ),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.shadow.withValues(alpha: 0.08),
+            color: colorScheme.shadow.withOpacity(0.08),
             blurRadius: 8.0,
             offset: const Offset(0, 2),
           ),
@@ -189,17 +176,15 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: GoogleMap(
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition: const CameraPosition(
-                    target: LatLng(37.7749, -122.4194),
-                    zoom: 13.0,
-                  ),
-                  markers: _createMarkers(),
-                  myLocationEnabled: true,
-                  myLocationButtonEnabled: true,
-                  zoomControlsEnabled: false,
-                  mapToolbarEnabled: false,
+                child: MapboxMapWidget(
+                  centers: _nearbyCenters,
+                  onCenterSelected: (center) {
+                    // Scroll to the selected center in the list
+                    final index = _nearbyCenters.indexOf(center);
+                    if (index != -1) {
+                      // You might want to implement scrolling to the selected item
+                    }
+                  },
                 ),
               ),
             ),
@@ -232,23 +217,23 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                       width: 10.w,
                       height: 10.w,
                       decoration: BoxDecoration(
-                        color: center["type"] == "Emergency"
+                        color: center.type == "Emergency"
                             ? colorScheme.error.withValues(alpha: 0.1)
-                            : center["type"] == "Crisis Center"
+                            : center.type == "Crisis Center"
                                 ? Colors.orange.withValues(alpha: 0.1)
                                 : colorScheme.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Center(
                         child: CustomIconWidget(
-                          iconName: center["type"] == "Emergency"
+                          iconName: center.type == "Emergency"
                               ? 'local_hospital'
-                              : center["type"] == "Crisis Center"
+                              : center.type == "Crisis Center"
                                   ? 'support_agent'
                                   : 'psychology',
-                          color: center["type"] == "Emergency"
+                          color: center.type == "Emergency"
                               ? colorScheme.error
-                              : center["type"] == "Crisis Center"
+                              : center.type == "Crisis Center"
                                   ? Colors.orange
                                   : colorScheme.primary,
                           size: 5.w,
@@ -267,7 +252,7 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  center["name"] as String,
+                                  center.name,
                                   style: theme.textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: colorScheme.onSurface,
@@ -276,15 +261,15 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              if (center["isOpen"] as bool) ...[
+                              if (center.isOpen) ...[
                                 Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 2.w,
                                     vertical: 0.5.h,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: colorScheme.tertiary
-                                        .withValues(alpha: 0.1),
+                                    color:
+                                        colorScheme.tertiary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   child: Text(
@@ -300,7 +285,7 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                           ),
                           SizedBox(height: 0.5.h),
                           Text(
-                            center["address"] as String,
+                            center.address,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color:
                                   colorScheme.onSurface.withValues(alpha: 0.7),
@@ -318,7 +303,7 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                               ),
                               SizedBox(width: 1.w),
                               Text(
-                                center["distance"] as String,
+                                center.distance,
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: colorScheme.primary,
                                   fontWeight: FontWeight.w500,
@@ -339,15 +324,41 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: IconButton(
-                        onPressed: () {
-                          // Handle call action
+                        onPressed: () async {
+                          final Uri launchUri = Uri(
+                            scheme: 'tel',
+                            path: center.phone.replaceAll(RegExp(r'[^\d]'), ''),
+                          );
+                          try {
+                            if (await canLaunchUrl(launchUri)) {
+                              await launchUrl(launchUri);
+                            } else {
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Could not launch phone call'),
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.error,
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            if (!mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Error: ${e.toString()}'),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.error,
+                              ),
+                            );
+                          }
                         },
                         icon: CustomIconWidget(
                           iconName: 'phone',
                           color: colorScheme.primary,
                           size: 5.w,
                         ),
-                        tooltip: 'Call ${center["name"]}',
+                        tooltip: 'Call ${center.name}',
                       ),
                     ),
                   ],

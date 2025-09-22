@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
-import '../../models/user_model.dart';
-import '../../services/local_storage_service.dart';
 import './widgets/crisis_support_banner.dart';
 import './widgets/mood_trends_card.dart';
 import './widgets/quick_actions_card.dart';
@@ -213,7 +211,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         children: [
           // Greeting
           Text(
-            '${_getGreeting()}, ${_currentUser?.username ?? 'User'}!',
+            '${_getGreeting()}, ${widget.userName}!',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w600,
               color: colorScheme.onSurface,
@@ -283,7 +281,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                     radius: 8.w,
                     backgroundColor: colorScheme.primary,
                     child: Text(
-                      userData["name"].toString().substring(0, 1).toUpperCase(),
+                      widget.userName.substring(0, 1).toUpperCase(),
                       style: theme.textTheme.titleLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -292,7 +290,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    userData["name"],
+                    widget.userName,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),

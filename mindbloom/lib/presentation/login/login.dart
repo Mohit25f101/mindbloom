@@ -4,7 +4,6 @@ import 'package:sizer/sizer.dart';
 import '../../core/app_export.dart';
 import '../../models/user_model.dart';
 import '../../services/local_storage_service.dart';
-import '../../widgets/custom_icon_widget.dart';
 import './widgets/mindbloom_logo_widget.dart';
 
 class Login extends StatefulWidget {

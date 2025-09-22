@@ -172,7 +172,7 @@ class _AiCompanionChatState extends State<AiCompanionChat>
               size: 6.w,
             ),
             SizedBox(width: 2.w),
-            Text('Crisis Support'),
+            const Text('Crisis Support'),
           ],
         ),
         content: Column(
@@ -191,9 +191,9 @@ class _AiCompanionChatState extends State<AiCompanionChat>
                   ),
             ),
             SizedBox(height: 1.h),
-            Text('• National Suicide Prevention Lifeline: 988'),
-            Text('• Crisis Text Line: Text HOME to 741741'),
-            Text('• Emergency Services: 911'),
+            const Text('• National Suicide Prevention Lifeline: 988'),
+            const Text('• Crisis Text Line: Text HOME to 741741'),
+            const Text('• Emergency Services: 911'),
           ],
         ),
         actions: [
@@ -202,11 +202,11 @@ class _AiCompanionChatState extends State<AiCompanionChat>
               Navigator.pop(context);
               Navigator.pushNamed(context, '/crisis-support');
             },
-            child: Text('Get Help Now'),
+            child: const Text('Get Help Now'),
           ),
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Continue Chat'),
+            child: const Text('Continue Chat'),
           ),
         ],
       ),
@@ -229,13 +229,13 @@ class _AiCompanionChatState extends State<AiCompanionChat>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Clear Chat'),
-        content: Text(
+        title: const Text('Clear Chat'),
+        content: const Text(
             'Are you sure you want to clear all messages? This action cannot be undone.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -247,7 +247,7 @@ class _AiCompanionChatState extends State<AiCompanionChat>
               Navigator.pop(context);
               _suggestionAnimationController.forward();
             },
-            child: Text('Clear'),
+            child: const Text('Clear'),
           ),
         ],
       ),

@@ -96,8 +96,8 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: textPrimaryLight,
       ),
-      iconTheme: IconThemeData(color: textPrimaryLight),
-      actionsIconTheme: IconThemeData(color: textPrimaryLight),
+      iconTheme: const IconThemeData(color: textPrimaryLight),
+      actionsIconTheme: const IconThemeData(color: textPrimaryLight),
     ),
 
     // Card theme with subtle elevation and breathing room
@@ -160,7 +160,7 @@ class AppTheme {
       style: OutlinedButton.styleFrom(
         foregroundColor: primaryLight,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        side: BorderSide(color: primaryLight, width: 1.0),
+        side: const BorderSide(color: primaryLight, width: 1.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -195,23 +195,23 @@ class AppTheme {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: outlineLight, width: 1.0),
+        borderSide: const BorderSide(color: outlineLight, width: 1.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: outlineLight, width: 1.0),
+        borderSide: const BorderSide(color: outlineLight, width: 1.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: primaryLight, width: 2.0),
+        borderSide: const BorderSide(color: primaryLight, width: 2.0),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: errorLight, width: 1.0),
+        borderSide: const BorderSide(color: errorLight, width: 1.0),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: errorLight, width: 2.0),
+        borderSide: const BorderSide(color: errorLight, width: 2.0),
       ),
       labelStyle: GoogleFonts.inter(
         color: textSecondaryLight,
@@ -254,7 +254,7 @@ class AppTheme {
         return Colors.transparent;
       }),
       checkColor: WidgetStateProperty.all(Colors.white),
-      side: BorderSide(color: outlineLight, width: 1.0),
+      side: const BorderSide(color: outlineLight, width: 1.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
@@ -326,12 +326,12 @@ class AppTheme {
       elevation: 6.0,
     ),
 
-    dividerTheme: DividerThemeData(
+    dividerTheme: const DividerThemeData(
       color: dividerLight,
       thickness: 1.0,
       space: 1.0,
     ),
-    dialogTheme: DialogThemeData(backgroundColor: dialogLight),
+    dialogTheme: const DialogThemeData(backgroundColor: dialogLight),
   );
 
   /// Dark theme maintaining therapeutic principles for night use
@@ -380,8 +380,8 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: textPrimaryDark,
       ),
-      iconTheme: IconThemeData(color: textPrimaryDark),
-      actionsIconTheme: IconThemeData(color: textPrimaryDark),
+      iconTheme: const IconThemeData(color: textPrimaryDark),
+      actionsIconTheme: const IconThemeData(color: textPrimaryDark),
     ),
     cardTheme: CardThemeData(
       color: cardDark,
@@ -435,7 +435,7 @@ class AppTheme {
       style: OutlinedButton.styleFrom(
         foregroundColor: primaryDark,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        side: BorderSide(color: primaryDark, width: 1.0),
+        side: const BorderSide(color: primaryDark, width: 1.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -465,23 +465,23 @@ class AppTheme {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: outlineDark, width: 1.0),
+        borderSide: const BorderSide(color: outlineDark, width: 1.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: outlineDark, width: 1.0),
+        borderSide: const BorderSide(color: outlineDark, width: 1.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: primaryDark, width: 2.0),
+        borderSide: const BorderSide(color: primaryDark, width: 2.0),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: errorDark, width: 1.0),
+        borderSide: const BorderSide(color: errorDark, width: 1.0),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.0),
-        borderSide: BorderSide(color: errorDark, width: 2.0),
+        borderSide: const BorderSide(color: errorDark, width: 2.0),
       ),
       labelStyle: GoogleFonts.inter(
         color: textSecondaryDark,
@@ -521,7 +521,7 @@ class AppTheme {
         return Colors.transparent;
       }),
       checkColor: WidgetStateProperty.all(Colors.black),
-      side: BorderSide(color: outlineDark, width: 1.0),
+      side: const BorderSide(color: outlineDark, width: 1.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
@@ -586,12 +586,12 @@ class AppTheme {
       ),
       elevation: 6.0,
     ),
-    dividerTheme: DividerThemeData(
+    dividerTheme: const DividerThemeData(
       color: dividerDark,
       thickness: 1.0,
       space: 1.0,
     ),
-    dialogTheme: DialogThemeData(backgroundColor: dialogDark),
+    dialogTheme: const DialogThemeData(backgroundColor: dialogDark),
   );
 
   /// Helper method to build therapeutic text theme

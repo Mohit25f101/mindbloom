@@ -152,7 +152,7 @@ class UpcomingCheckinsCard extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/mood-check-in'),
-                child: Text('Start Check-in Now'),
+                child: const Text('Start Check-in Now'),
               ),
             ),
           ],

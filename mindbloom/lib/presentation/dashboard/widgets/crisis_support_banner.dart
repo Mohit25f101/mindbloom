@@ -42,7 +42,7 @@ class CrisisSupportBanner extends StatelessWidget {
                   color: AppTheme.errorLight,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: CustomIconWidget(
+                child: const CustomIconWidget(
                   iconName: 'emergency',
                   color: Colors.white,
                   size: 24,
@@ -102,7 +102,7 @@ class CrisisSupportBanner extends StatelessWidget {
                     backgroundColor: AppTheme.errorLight,
                     foregroundColor: Colors.white,
                   ),
-                  child: Text('Get Support Now'),
+                  child: const Text('Get Support Now'),
                 ),
               ),
               SizedBox(width: 2.w),
@@ -111,10 +111,10 @@ class CrisisSupportBanner extends StatelessWidget {
                   onPressed: () =>
                       Navigator.pushNamed(context, '/ai-companion-chat'),
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: AppTheme.errorLight),
+                    side: const BorderSide(color: AppTheme.errorLight),
                     foregroundColor: AppTheme.errorLight,
                   ),
-                  child: Text('Talk to AI'),
+                  child: const Text('Talk to AI'),
                 ),
               ),
             ],

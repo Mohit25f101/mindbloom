@@ -33,17 +33,17 @@ class CustomErrorWidget extends StatelessWidget {
                 width: 42,
               ),
               const SizedBox(height: 8),
-              Text(
+              const Text(
                 "Something went wrong",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF262626),
                 ),
               ),
               const SizedBox(height: 4),
-              SizedBox(
-                child: const Text(
+              const SizedBox(
+                child: Text(
                   'We encountered an unexpected error while processing your request.',
                   textAlign: TextAlign.center,
                   style: TextStyle(

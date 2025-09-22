@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
 import '../../widgets/custom_icon_widget.dart';
+
 import './widgets/mindbloom_logo_widget.dart';
 import './widgets/registration_form_widget.dart';
 import './widgets/terms_privacy_widget.dart';
@@ -17,12 +18,17 @@ class UserRegistration extends StatefulWidget {
 class _UserRegistrationState extends State<UserRegistration>
     with TickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // New Controllers
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
+  String? _selectedGender;
   String? _selectedUniversity;
   String? _selectedAcademicYear;
   String? _selectedMajor;
@@ -67,6 +73,9 @@ class _UserRegistrationState extends State<UserRegistration>
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -76,16 +85,24 @@ class _UserRegistrationState extends State<UserRegistration>
   }
 
   bool _isFormValid() {
-    return _formKey.currentState?.validate() == true &&
-        _dataCollectionConsent &&
+    final formValid = _formKey.currentState?.validate() ?? false;
+    final consentsValid = _dataCollectionConsent &&
         _crisisInterventionConsent &&
         _emergencyContactConsent;
+
+    return formValid && consentsValid;
   }
 
   Future<void> _createAccount() async {
-    if (!_isFormValid()) {
-      _showErrorMessage(
-          'Please complete all required fields and accept the consent agreements.');
+    if (!(_formKey.currentState?.validate() ?? false)) {
+      _showErrorMessage('Please complete all required fields.');
+      return;
+    }
+
+    if (!(_dataCollectionConsent &&
+        _crisisInterventionConsent &&
+        _emergencyContactConsent)) {
+      _showErrorMessage('Please accept all consent agreements to proceed.');
       return;
     }
 
@@ -97,23 +114,11 @@ class _UserRegistrationState extends State<UserRegistration>
       // Simulate account creation process
       await Future.delayed(const Duration(seconds: 2));
 
-      // Mock account creation logic - validation only for now
+      // Mock account creation logic
       if (_selectedUniversity == null ||
           _selectedAcademicYear == null ||
           _selectedMajor == null) {
         throw Exception('Please complete all required fields.');
-      }
-
-      // Check for duplicate email (mock validation)
-      if (_emailController.text.trim().toLowerCase() == 'test@university.edu') {
-        throw Exception(
-            'An account with this email already exists. Please use a different email address.');
-      }
-
-      // Validate password strength
-      if (_passwordController.text.length < 8) {
-        throw Exception(
-            'Password must be at least 8 characters long with mixed case letters, numbers, and symbols.');
       }
 
       // Success - show animation
@@ -128,7 +133,12 @@ class _UserRegistrationState extends State<UserRegistration>
       await Future.delayed(const Duration(seconds: 2));
 
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/dashboard');
+        // Pass the user's name to the dashboard
+        Navigator.pushReplacementNamed(
+          context,
+          '/dashboard',
+          arguments: {'userName': _nameController.text},
+        );
       }
     } catch (e) {
       setState(() {
@@ -174,7 +184,7 @@ class _UserRegistrationState extends State<UserRegistration>
                 borderRadius: BorderRadius.circular(20.0),
                 boxShadow: [
                   BoxShadow(
-                    color: colorScheme.shadow.withValues(alpha: 0.1),
+                    color: colorScheme.shadow.withOpacity(0.1),
                     blurRadius: 20.0,
                     offset: const Offset(0, 10),
                   ),
@@ -289,16 +299,25 @@ class _UserRegistrationState extends State<UserRegistration>
                     // Registration Form
                     RegistrationFormWidget(
                       formKey: _formKey,
+                      nameController: _nameController,
+                      phoneController: _phoneController,
+                      addressController: _addressController,
                       emailController: _emailController,
                       passwordController: _passwordController,
                       confirmPasswordController: _confirmPasswordController,
                       ageController: _ageController,
+                      selectedGender: _selectedGender,
                       selectedUniversity: _selectedUniversity,
                       selectedAcademicYear: _selectedAcademicYear,
                       selectedMajor: _selectedMajor,
                       dataCollectionConsent: _dataCollectionConsent,
                       crisisInterventionConsent: _crisisInterventionConsent,
                       emergencyContactConsent: _emergencyContactConsent,
+                      onGenderChanged: (value) {
+                        setState(() {
+                          _selectedGender = value;
+                        });
+                      },
                       onUniversityChanged: (value) {
                         setState(() {
                           _selectedUniversity = value;
@@ -344,10 +363,10 @@ class _UserRegistrationState extends State<UserRegistration>
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _isFormValid()
                               ? colorScheme.primary
-                              : colorScheme.onSurface.withValues(alpha: 0.12),
+                              : colorScheme.onSurface.withOpacity(0.12),
                           foregroundColor: _isFormValid()
                               ? Colors.white
-                              : colorScheme.onSurface.withValues(alpha: 0.38),
+                              : colorScheme.onSurface.withOpacity(0.38),
                           elevation: _isFormValid() ? 2.0 : 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
@@ -370,8 +389,7 @@ class _UserRegistrationState extends State<UserRegistration>
                                   fontWeight: FontWeight.w600,
                                   color: _isFormValid()
                                       ? Colors.white
-                                      : colorScheme.onSurface
-                                          .withValues(alpha: 0.38),
+                                      : colorScheme.onSurface.withOpacity(0.38),
                                 ),
                               ),
                       ),
@@ -417,7 +435,7 @@ class _UserRegistrationState extends State<UserRegistration>
           // Success Animation Overlay
           if (_showSuccessAnimation)
             Container(
-              color: Colors.black.withValues(alpha: 0.5),
+              color: Colors.black.withOpacity(0.5),
               child: Center(
                 child: _buildSuccessAnimation(),
               ),

@@ -113,7 +113,7 @@ class WellnessScoreWidget extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      CustomIconWidget(
+                      const CustomIconWidget(
                         iconName: 'local_fire_department',
                         color: AppTheme.successLight,
                         size: 16,

@@ -379,7 +379,7 @@ class _MoodHistoryState extends State<MoodHistory> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
+            const CircularProgressIndicator(),
             SizedBox(height: 2.h),
             Text(
               'Loading mood history...',

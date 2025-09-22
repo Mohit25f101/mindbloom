@@ -111,7 +111,7 @@ class _MoodTrendGraphState extends State<MoodTrendGraph> {
                 },
               ),
             ),
-            gridData: FlGridData(show: false),
+            gridData: const FlGridData(show: false),
             titlesData: FlTitlesData(
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(

@@ -201,7 +201,7 @@ class ChatMessageWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurface,
                 size: 6.w,
               ),
-              title: Text('Copy Message'),
+              title: const Text('Copy Message'),
               onTap: () {
                 Clipboard.setData(ClipboardData(text: content));
                 Navigator.pop(context);
@@ -216,7 +216,7 @@ class ChatMessageWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurface,
                 size: 6.w,
               ),
-              title: Text('Share Message'),
+              title: const Text('Share Message'),
               onTap: () {
                 Navigator.pop(context);
                 // Share functionality would be implemented here
@@ -228,7 +228,7 @@ class ChatMessageWidget extends StatelessWidget {
                 color: Theme.of(context).colorScheme.error,
                 size: 6.w,
               ),
-              title: Text('Flag Inappropriate'),
+              title: const Text('Flag Inappropriate'),
               onTap: () {
                 Navigator.pop(context);
                 // Flag functionality would be implemented here

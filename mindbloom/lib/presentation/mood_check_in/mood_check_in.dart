@@ -170,7 +170,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
                       Navigator.of(context).pop();
                       Navigator.pushNamed(context, '/ai-companion-chat');
                     },
-                    child: Text("Chat with AI"),
+                    child: const Text("Chat with AI"),
                   ),
                 ),
                 SizedBox(width: 2.w),
@@ -180,7 +180,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
                       Navigator.of(context).pop();
                       _resetForm();
                     },
-                    child: Text("Done"),
+                    child: const Text("Done"),
                   ),
                 ),
               ],
@@ -465,7 +465,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
                               : Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    CustomIconWidget(
+                                    const CustomIconWidget(
                                       iconName: 'favorite',
                                       size: 20,
                                       color: Colors.white,
@@ -499,7 +499,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
                                 size: 18,
                                 color: AppTheme.lightTheme.colorScheme.primary,
                               ),
-                              label: Text("AI Support"),
+                              label: const Text("AI Support"),
                               style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(vertical: 2.h),
                                 shape: RoundedRectangleBorder(
@@ -521,7 +521,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
                                 color:
                                     AppTheme.lightTheme.colorScheme.secondary,
                               ),
-                              label: Text("Breathe"),
+                              label: const Text("Breathe"),
                               style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(vertical: 2.h),
                                 shape: RoundedRectangleBorder(
@@ -628,7 +628,7 @@ class _MoodCheckInState extends State<MoodCheckIn>
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text("Start Exercise"),
+                      child: const Text("Start Exercise"),
                     ),
                   ),
                 ],

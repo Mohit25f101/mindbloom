@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/app_export.dart';
 import './widgets/breathing_exercise_card.dart';
@@ -128,65 +129,138 @@ class _CrisisSupportState extends State<CrisisSupport> {
     });
   }
 
-  void _callCrisisHotline() {
-    // Handle crisis hotline call
-    // In a real app, this would use url_launcher to make the call
+  Future<void> _launchPhoneCall(String phoneNumber) async {
+    final Uri telUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber.replaceAll(RegExp(r'[^\d+]'), ''),
+    );
+
+    try {
+      if (await canLaunchUrl(telUri)) {
+        await launchUrl(telUri);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Could not launch phone call to $phoneNumber'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error launching phone call: $e'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _launchSMS(String phoneNumber, String message) async {
+    final Uri smsUri = Uri(
+      scheme: 'sms',
+      path: phoneNumber,
+      queryParameters: {'body': message},
+    );
+
+    try {
+      if (await canLaunchUrl(smsUri)) {
+        await launchUrl(smsUri);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Could not launch SMS to $phoneNumber'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error launching SMS: $e'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _callCrisisHotline() async {
+    const phoneNumber = '14416'; // Tele-MANAS Mental Health Helpline
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text("Connecting to National Suicide Prevention Lifeline..."),
+        content: Text("Connecting to Tele-MANAS Mental Health Helpline..."),
         duration: Duration(seconds: 2),
       ),
     );
+    await _launchPhoneCall(phoneNumber);
   }
 
-  void _textCrisisLine() {
-    // Handle crisis text line
+  Future<void> _textCrisisLine() async {
+    const phoneNumber = '741741';
+    const message = 'HOME';
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text("Opening text conversation with crisis support..."),
+        content: Text("Opening crisis text line..."),
         duration: Duration(seconds: 2),
       ),
     );
+    await _launchSMS(phoneNumber, message);
   }
 
-  void _callCampusCounseling() {
-    // Handle campus counseling call
+  Future<void> _callCampusCounseling() async {
+    const phoneNumber = '9999666555'; // Vandrevala Foundation number
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text("Connecting to campus counseling center..."),
+        content: Text("Connecting to counseling helpline..."),
         duration: Duration(seconds: 2),
       ),
     );
+    await _launchPhoneCall(phoneNumber);
   }
 
-  void _callEmergencyServices() {
-    // Handle emergency services call
+  Future<void> _handleEmergencyContact(
+      Map<String, dynamic> contact, bool isCall) async {
+    final name = contact['name'] as String;
+    final phone =
+        (contact['phone'] as String).replaceAll(RegExp(r'[^\d+]'), '');
+
+    if (isCall) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Calling $name..."),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      await _launchPhoneCall(phone);
+    } else {
+      final message = "Hi $name, I need help. Can we talk?";
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Opening text conversation with $name..."),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      await _launchSMS(phone, message);
+    }
+  }
+
+  Future<void> _callEmergencyServices() async {
+    const phoneNumber = '112';
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text("Calling Emergency Services (911)..."),
+        content: Text("Calling Emergency Services (112)..."),
         duration: Duration(seconds: 2),
       ),
     );
-  }
-
-  void _callEmergencyContact(Map<String, dynamic> contact) {
-    // Handle emergency contact call
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Calling ${contact["name"]}..."),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _textEmergencyContact(Map<String, dynamic> contact) {
-    // Handle emergency contact text
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Sending text to ${contact["name"]}..."),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    await _launchPhoneCall(phoneNumber);
   }
 
   @override
@@ -323,7 +397,7 @@ class _CrisisSupportState extends State<CrisisSupport> {
                 SizedBox(width: 3.w),
                 Expanded(
                   child: Text(
-                    "If you're in immediate danger, call 911 or go to your nearest emergency room",
+                    "If you're in immediate danger, call 112 or go to your nearest emergency room",
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.error,
                       fontWeight: FontWeight.w500,
@@ -357,8 +431,8 @@ class _CrisisSupportState extends State<CrisisSupport> {
 
                 // Crisis Hotline - Primary Action
                 CrisisActionButton(
-                  title: "Call Crisis Hotline",
-                  subtitle: "National Suicide Prevention Lifeline - 988",
+                  title: "Call Mental Health Helpline",
+                  subtitle: "Tele-MANAS - 14416",
                   iconName: "phone",
                   backgroundColor: colorScheme.error,
                   textColor: Colors.white,
@@ -389,9 +463,9 @@ class _CrisisSupportState extends State<CrisisSupport> {
                 // Emergency Services
                 CrisisActionButton(
                   title: "Emergency Services",
-                  subtitle: "Call 911 for immediate emergency",
+                  subtitle: "Call 112 for immediate emergency",
                   iconName: "local_hospital",
-                  backgroundColor: Colors.red.shade700,
+                  backgroundColor: Colors.red.shade900,
                   textColor: Colors.white,
                   onPressed: _callEmergencyServices,
                 ),
@@ -432,8 +506,8 @@ class _CrisisSupportState extends State<CrisisSupport> {
                     final contact = _emergencyContacts[index];
                     return EmergencyContactCard(
                       contact: contact,
-                      onCall: () => _callEmergencyContact(contact),
-                      onText: () => _textEmergencyContact(contact),
+                      onCall: () => _handleEmergencyContact(contact, true),
+                      onText: () => _handleEmergencyContact(contact, false),
                     );
                   },
                 ),

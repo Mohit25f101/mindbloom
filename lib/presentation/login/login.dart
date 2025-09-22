@@ -170,7 +170,7 @@ class _LoginState extends State<Login> {
       return 'Password is required';
     }
     if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return 'Password must be at least 8 characters';
     }
     return null;
   }
@@ -337,14 +337,15 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 3.h),
 
                         // Sign Up Link
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Text(
                               'Don\'t have an account? ',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: colorScheme.onSurface
-                                    .withValues(alpha: 179), // 0.7 * 255 = 179
+                                    .withValues(alpha: 179),
                               ),
                             ),
                             TextButton(
@@ -352,6 +353,12 @@ class _LoginState extends State<Login> {
                                 Navigator.pushReplacementNamed(
                                     context, '/registration');
                               },
+                              style: TextButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
                               child: Text(
                                 'Sign Up',
                                 style: theme.textTheme.bodyMedium?.copyWith(

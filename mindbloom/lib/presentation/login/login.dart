@@ -118,7 +118,11 @@ class _LoginState extends State<Login> {
       );
 
       // Navigate to dashboard on success
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      Navigator.pushReplacementNamed(
+        context,
+        '/dashboard',
+        arguments: {'userName': user.username},
+      );
     } catch (e) {
       if (!mounted) return;
 
@@ -350,7 +354,7 @@ class _LoginState extends State<Login> {
                             TextButton(
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
-                                    context, '/registration');
+                                    context, AppRoutes.userRegistration);
                               },
                               child: Text(
                                 'Sign Up',

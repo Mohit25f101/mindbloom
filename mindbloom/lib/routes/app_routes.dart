@@ -25,7 +25,12 @@ class AppRoutes {
     login: (context) => const Login(),
     moodCheckIn: (context) => const MoodCheckIn(),
     crisisSupport: (context) => const CrisisSupport(),
-    dashboard: (context) => const Dashboard(),
+    dashboard: (context) {
+      final args =
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+      final userName = args?['userName'] as String? ?? 'Guest';
+      return Dashboard(userName: userName);
+    },
     aiCompanionChat: (context) => const AiCompanionChat(),
     userRegistration: (context) => const UserRegistration(),
     moodHistory: (context) => const MoodHistory(),

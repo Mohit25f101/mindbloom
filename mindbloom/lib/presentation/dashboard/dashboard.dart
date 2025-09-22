@@ -13,7 +13,9 @@ import './widgets/upcoming_checkins_card.dart';
 import './widgets/wellness_score_widget.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  final String userName;
+
+  const Dashboard({super.key, required this.userName});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -24,29 +26,18 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   bool _showCrisisBanner = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  late LocalStorageService _storage;
-  UserModel? _currentUser;
-  Map<String, dynamic> userData = {
+  // Mock user data
+  final Map<String, dynamic> userData = {
+    "name": "Sarah",
     "currentMood": 7.8,
     "streak": 12,
     "lastCheckIn": "2 hours ago",
     "wellnessScore": 7.8,
   };
 
-  Future<void> _loadUserData() async {
-    _storage = await LocalStorageService.getInstance();
-    final user = _storage.getUser();
-    if (user != null && mounted) {
-      setState(() {
-        _currentUser = user;
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    _loadUserData();
     _tabController = TabController(length: 1, vsync: this);
     _checkCrisisPatterns();
   }

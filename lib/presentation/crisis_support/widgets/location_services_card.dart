@@ -336,7 +336,7 @@ class _LocationServicesCardState extends State<LocationServicesCard> {
                               if (!mounted) return;
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Could not launch phone call'),
+                                  content: const Text('Could not launch phone call'),
                                   backgroundColor:
                                       Theme.of(context).colorScheme.error,
                                 ),
